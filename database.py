@@ -11,12 +11,12 @@ class Database:
         """
             Chargez les variables d'environnement de votre fichier .env, puis complétez les lignes 15 à 19 afin de récupérer les valeurs de ces variables
         """
-
-        self.host =
-        self.port =
-        self.database =
-        self.user =
-        self.password =
+        load_dotenv()
+        self.host = os.environ.get("HOST")
+        self.port = int(os.environ.get("PORT"))
+        self.database = os.environ.get("DATABASE")
+        self.user = os.environ.get("USER")
+        self.password = os.environ.get("PASSWORD")
 
         self._open_sql_connection()
 
@@ -24,12 +24,12 @@ class Database:
 
     def _open_sql_connection(self):
         self.connection = pymysql.connect(
-            host=self.host,
-            port=self.port,
-            user=self.user,
-            password=self.password,
-            db=self.database,
-            autocommit=True
+            host = self.host,
+            port = self.port,
+            user = self.user,
+            password = self.password,
+            db = self.database,
+            autocommit = True
         )
 
         self.cursor = self.connection.cursor()
